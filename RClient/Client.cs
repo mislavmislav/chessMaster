@@ -2,7 +2,7 @@
 
 namespace RClient
 {
-    class Client
+    public class Client
     {
 
         public string Test()
