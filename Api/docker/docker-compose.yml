@@ -11,7 +11,7 @@ services:
     container_name: rediscache
 
   chessmasterapi:
-    image: mislavmislav/test:chessmasterapi
+    image: mislavmislav/test:chessmaster
     environment:
       - RedisHost=rediscache:6379
     build:
@@ -24,4 +24,4 @@ services:
       - "5101:80"
     depends_on:
       - rediscache
-    container_name: chessmasterapi
+    container_name: chessmaster
