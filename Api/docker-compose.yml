@@ -10,7 +10,7 @@ services:
       - "6379:6379"
     container_name: rediscache
 
-  chessmasterapi:
+  chessmaster:
     image: mislavmislav/test:chessmaster
     environment:
       - RedisHost=rediscache:6379

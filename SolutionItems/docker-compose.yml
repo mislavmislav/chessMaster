@@ -1,0 +1,27 @@
+﻿version: '3.4'
+
+services:
+
+  rediscache:
+    image: redis:alpine
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    container_name: rediscache
+
+  chessmaster:
+    image: mislavmislav/test:chessmaster
+    environment:
+      - RedisHost=rediscache:6379
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    expose:
+      - "80"
+      - "443"
+    ports:
+      - "5101:80"
+    depends_on:
+      - rediscache
+    container_name: chessmaster
