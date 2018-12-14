@@ -1,5 +1,7 @@
 ﻿/.vs/chessMaster/v15/.
 /.vs/chessMaster/v15
+/.vs/chessMaster
+/.vs/chessMaster/.
 /.vs/VSWorkspaceState.json
 /.vs/slnx.sqlite
 /Api/obj/.
@@ -22,3 +24,7 @@
 /Api/bin/.
 /obj
 /obj/.
+/RClient/obj
+/RClient/obj/.
+/RClient/bin
+/RClient/bin/.
