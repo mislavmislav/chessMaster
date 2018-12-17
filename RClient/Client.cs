@@ -7,7 +7,7 @@ namespace RClient
 
         public string Test()
         {
-            var manager = new RedisManagerPool("localhost:6379");
+            var manager = new RedisManagerPool("rediscache");
             using (var client = manager.GetClient())
             {
                 client.Set("foo", "bar");
