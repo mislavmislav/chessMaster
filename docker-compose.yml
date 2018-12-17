@@ -16,7 +16,7 @@ services:
       - RedisHost=rediscache:6379
     build:
       context: .
-      dockerfile: Api/Dockerfile
+      dockerfile: Dockerfile
     expose:
       - "80"
       - "443"
