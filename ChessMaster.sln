@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{36E26C59-1F27-4040-94A7-3EF2960BCD2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RClient", "RClient\RClient.csproj", "{79BCEC3B-8BE1-4443-8183-BEDFBF08AA15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisService", "RedisService\RedisService.csproj", "{79BCEC3B-8BE1-4443-8183-BEDFBF08AA15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessMaster", "ChessMaster\ChessMaster.csproj", "{B1EC4621-8E98-4194-8897-88A06732B801}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessMaster", "ChessMaster\ChessMaster.csproj", "{B1EC4621-8E98-4194-8897-88A06732B801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

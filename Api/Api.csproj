@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChessMaster\ChessMaster.csproj" />
-    <ProjectReference Include="..\RClient\RClient.csproj" />
+    <ProjectReference Include="..\RedisService\RedisService.csproj" />
   </ItemGroup>
 
 </Project>

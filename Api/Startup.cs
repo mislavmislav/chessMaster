@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RedisService;
 
 namespace Api
 {
@@ -25,6 +26,7 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton<IRedisService>(sp => new RedisService.RedisService(Configuration["RedisHost"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,7 +6,7 @@ EXPOSE 443
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["Api/Api.csproj", "Api/"]
-COPY ["RClient/RClient.csproj", "RClient/"]
+COPY ["RedisService/RedisService.csproj", "RedisService/"]
 COPY ["ChessMaster/ChessMaster.csproj", "ChessMaster/"]
 RUN dotnet restore "Api/Api.csproj"
 COPY . .

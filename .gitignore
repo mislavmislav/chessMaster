@@ -8,10 +8,6 @@
 /Api/obj
 /ChessComClient/bin/.
 /ChessComClient/bin
-/RedisClient/obj
-/RedisClient/obj/.
-/RedisClient/bin
-/RedisClient/bin/.
 /packages
 /packages/.
 /ChessMaster/obj/.
@@ -24,8 +20,8 @@
 /Api/bin/.
 /obj
 /obj/.
-/RClient/obj
-/RClient/obj/.
-/RClient/bin
-/RClient/bin/.
+/RedisService/obj
+/RedisService/obj/.
+/RedisService/bin
+/RedisService/bin/.
 /ChessMaster/ChessMaster.csproj.user

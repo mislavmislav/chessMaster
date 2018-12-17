@@ -1,8 +1,33 @@
 ﻿using System;
 using ServiceStack.Redis;
 
-namespace RClient
+namespace RedisService
 {
+    public class RedisService : IRedisService
+    {
+        private RedisManagerPool _redisManagerPool;
+
+        public RedisService(string connectionName)
+        {
+            _redisManagerPool = new RedisManagerPool(connectionName);
+        }
+
+        public bool CheckStatus()
+        {
+            using (var _client = _redisManagerPool.GetClient())
+            {
+                try
+                {
+                    return _client.Get<bool>("status");
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+    }
     public class ClientFactory
     {
         private static Client _client;

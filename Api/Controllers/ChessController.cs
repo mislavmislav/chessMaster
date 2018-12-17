@@ -1,6 +1,6 @@
 ﻿using ChessMaster;
 using Microsoft.AspNetCore.Mvc;
-using RClient;
+using RedisService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +11,27 @@ namespace Api.Controllers
     [ApiController]
     public class ChessController : ControllerBase
     {
+        private IRedisService _redisService;
+
+        public ChessController(IRedisService redisService)
+        {
+            _redisService = redisService;
+        }
+        // GET api/chess
+        //  method will return state of scraping
+        //[HttpGet]
+        //public ActionResult<bool> Get()
+        //{
+        //    var client = ClientFactory.GetClient("rediscache");
+        //    return client.CheckStatus();
+        //}
+
         // GET api/chess
         //  method will return state of scraping
         [HttpGet]
         public ActionResult<bool> Get()
         {
-            var client = ClientFactory.GetClient("rediscache");
-            return client.CheckStatus();
+            return _redisService.CheckStatus();
         }
 
         // GET api/chess

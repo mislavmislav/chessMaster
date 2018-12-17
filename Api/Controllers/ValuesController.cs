@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RClient;
+using RedisService;
 
 namespace Api.Controllers
 {
