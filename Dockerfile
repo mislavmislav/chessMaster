@@ -7,6 +7,7 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["Api/Api.csproj", "Api/"]
 COPY ["RClient/RClient.csproj", "RClient/"]
+COPY ["ChessMaster/ChessMaster.csproj", "ChessMaster/"]
 RUN dotnet restore "Api/Api.csproj"
 COPY . .
 RUN dotnet build "Api/Api.csproj" -c Release -o /app

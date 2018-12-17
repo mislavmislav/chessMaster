@@ -1,7 +1,6 @@
-﻿using ChessMaster;
-using RestSharp;
+﻿using RestSharp;
 
-namespace ChessComClient
+namespace ChessMaster
 {
     public class Client
     {

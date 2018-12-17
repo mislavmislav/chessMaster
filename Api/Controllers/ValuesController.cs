@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using RClient;
 
 namespace Api.Controllers
 {
@@ -11,7 +12,7 @@ namespace Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            RClient.Client client = new RClient.Client();
+            var client = ClientFactory.GetClient("rediscache");
             var data = client.Test();
             return new string[] { data };
         }

@@ -187,7 +187,7 @@ namespace ChessMaster
 
     public partial class White : Black
     {
-       
+
     }
 
     public enum Result { Checkmated, Insufficient, Resigned, Timeout, Win, Abandoned, Agreed };
