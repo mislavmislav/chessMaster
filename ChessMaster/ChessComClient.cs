@@ -2,7 +2,7 @@
 
 namespace ChessMaster
 {
-    public class Client
+    public class ChessComClient
     {
         public static Stats GetStats(string username)
         {

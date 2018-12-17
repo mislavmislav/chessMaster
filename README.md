@@ -52,6 +52,7 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["Api/Api.csproj", "Api/"]
 COPY ["RClient/RClient.csproj", "RClient/"]
+COPY ["ChessMaster/ChessMaster.csproj", "ChessMaster/"]
 RUN dotnet restore "Api/Api.csproj"
 COPY . .
 RUN dotnet build "Api/Api.csproj" -c Release -o /app
@@ -62,7 +63,7 @@ RUN dotnet publish "Api/Api.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Api/Api.dll"]
+ENTRYPOINT ["dotnet", "Api.dll"]
 ```
 
   - docker-compose.yml
@@ -79,13 +80,13 @@ services:
       - "6379:6379"
     container_name: rediscache
 
-  chessmasterapi:
-    image: mislavmislav/test:chessmasterapi
+  chessmaster:
+    image: mislavmislav/test:chessmaster
     environment:
       - RedisHost=rediscache:6379
     build:
       context: .
-      dockerfile: Api/Dockerfile
+      dockerfile: Dockerfile
     expose:
       - "80"
       - "443"
@@ -93,7 +94,14 @@ services:
       - "5101:80"
     depends_on:
       - rediscache
-    container_name: chessmasterapi
+    container_name: chessmaster
 ```
 
 ##  Publish & Installation
+
+# TODO
+
+### Persist redis date
+### Extract redis container name to config
+###	Add some frontend solution
+

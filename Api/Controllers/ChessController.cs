@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChessMaster;
+using Microsoft.AspNetCore.Mvc;
 using RClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Controllers
 {
@@ -16,14 +20,31 @@ namespace Api.Controllers
             return client.CheckStatus();
         }
 
-        //[HttpGet("{id}")]
-        //// GET api/chess
-        ////  method will return state of scraping
-        //[HttpGet]
-        //public ActionResult<string> Get(string id)
-        //{
-        //    var chessMaster = ChessMasterFactory.GetChessMaster();
-        //}
+        // GET api/chess
+        //  method will return state of scraping
+        [HttpGet("{id}")]
+        public ActionResult<bool> Get(string id)
+        {
+            var username = "mislavmislav";
+            var client = ClientFactory.GetClient("rediscache");
+
+            var stats = ChessComClient.GetStats(username);
+            var months = ChessComClient.GetMonthlyStats(username);
+
+            Dictionary<DateTime, MonthGames> completeArchive = new Dictionary<DateTime, MonthGames>();
+
+            foreach (var monthArchive in months.Archives)
+            {
+                var games = ChessComClient.GetMonthlyGames(monthArchive.AbsoluteUri);
+                var month = int.Parse(monthArchive.Segments[6]);
+                var year = int.Parse(monthArchive.Segments[5].Split('/').First());
+                completeArchive.Add(new DateTime(year, month, 1), games);
+
+                client.AddArchive(new DateTime(year, month, 1), games.Games.Count);
+            }
+
+            return true;
+        }
     }
       
 }

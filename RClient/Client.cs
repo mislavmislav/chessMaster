@@ -1,4 +1,5 @@
-﻿using ServiceStack.Redis;
+﻿using System;
+using ServiceStack.Redis;
 
 namespace RClient
 {
@@ -35,7 +36,7 @@ namespace RClient
                 {
                     return _client.Get<bool>("status");
                 }
-                catch (System.Exception e)
+                catch (System.Exception)
                 {
                     return false;
                 }
@@ -49,6 +50,20 @@ namespace RClient
             {
                 client.Set("foo", "bar");
                 return $"foo={client.Get<string>("foo")}";
+            }
+        }
+
+        public void AddArchive(DateTime dateTime, int count)
+        {
+            using (var _client = _redisManagerPool.GetClient())
+            {
+                try
+                {
+                    _client.Set<string>(dateTime.ToLongDateString(), count.ToString());
+                }
+                catch (System.Exception)
+                {
+                }
             }
         }
     }
