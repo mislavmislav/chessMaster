@@ -8,7 +8,12 @@ services:
       - "6379"
     ports:
       - "6379:6379"
+    volumes:
+      - ../data/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
     container_name: rediscache
+
 
   chessmaster:
     image: mislavmislav/test:chessmaster

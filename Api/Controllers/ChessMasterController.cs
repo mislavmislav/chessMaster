@@ -9,22 +9,14 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChessController : ControllerBase
+    public class ChessMasterController : ControllerBase
     {
         private IRedisService _redisService;
 
-        public ChessController(IRedisService redisService)
+        public ChessMasterController(IRedisService redisService)
         {
             _redisService = redisService;
         }
-        // GET api/chess
-        //  method will return state of scraping
-        //[HttpGet]
-        //public ActionResult<bool> Get()
-        //{
-        //    var client = ClientFactory.GetClient("rediscache");
-        //    return client.CheckStatus();
-        //}
 
         // GET api/chess
         //  method will return state of scraping
@@ -40,7 +32,6 @@ namespace Api.Controllers
         public ActionResult<bool> Get(string id)
         {
             var username = "mislavmislav";
-            var client = ClientFactory.GetClient("rediscache");
 
             var stats = ChessComClient.GetStats(username);
             var months = ChessComClient.GetMonthlyStats(username);
@@ -54,7 +45,7 @@ namespace Api.Controllers
                 var year = int.Parse(monthArchive.Segments[5].Split('/').First());
                 completeArchive.Add(new DateTime(year, month, 1), games);
 
-                client.AddArchive(new DateTime(year, month, 1), games.Games.Count);
+                _redisService.AddArchive(new DateTime(year, month, 1), games.Games.Count);
             }
 
             return true;
