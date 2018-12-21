@@ -8,4 +8,11 @@ namespace ChessMaster.DataModel
         public DateTime date { get; internal set; }
         public string status { get; internal set; }
     }
+
+    public enum DataPullStatusValue
+    {
+        Idle,
+        Ready,
+        InProgress
+    }
 }

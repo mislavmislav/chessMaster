@@ -18,17 +18,15 @@ namespace Api.Controllers
 
 
         [HttpGet("/chessmaster/generatedatamodel/{username}")]
-        public ActionResult<bool> GenerateDataModel()
+        public DataStatus GenerateDataModel(string username)
         {
-            Task.Run(() => _chessService.CheckDataModel("mislavmislav"));
-            return true;
+            return _chessService.GenerateDataModel(username);
         }
 
         [HttpGet("/chessmaster/getstatus/{username}")]
         public DataStatus GetStatus(string username)
         {
-            var status = _chessService.GetStatus(username);
-            return status;
+            return _chessService.GetStatus(username);
         }
     }
 }
