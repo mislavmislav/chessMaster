@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ChessMaster;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,14 +22,12 @@ namespace Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 #if DEBUG
-            var redisService = new RedisService.RedisService("192.168.8.244");
+            var redisService = new RedisService.RedisService("192.168.32.29");
             services.AddSingleton<IRedisService>(sp => redisService);
-
-            ChessMaster.Master master = new ChessMaster.Master(redisService);
-            master.CheckDataModel("mislavmislav");
 #else
             services.AddSingleton<IRedisService>(sp => new RedisService.RedisService(Configuration["RedisHost"]));
 #endif
+            services.AddSingleton<IMaster, Master>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +39,11 @@ namespace Api
             }
 
             app.UseMvc();
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("default", "{controller}/{action}/{id?}");
+            //});
         }
     }
 }

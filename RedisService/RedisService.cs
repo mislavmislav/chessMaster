@@ -11,7 +11,6 @@ namespace RedisService
         {
             _redisManagerPool = new RedisManagerPool(connectionName);
         }
-
         public bool CheckStatus()
         {
             using (var _client = _redisManagerPool.GetClient())
@@ -26,7 +25,6 @@ namespace RedisService
                 }
             }
         }
-
         public bool KeyExists(string key)
         {
             using (var _client = _redisManagerPool.GetClient())
@@ -44,7 +42,6 @@ namespace RedisService
                 return true;
             }
         }
-
         public void Add<T>(string key, T value)
         {
             using (var _client = _redisManagerPool.GetClient())
@@ -58,7 +55,6 @@ namespace RedisService
                 }
             }
         }
-
         public T Get<T>(string key)
         {
             using (var _client = _redisManagerPool.GetClient())
@@ -70,6 +66,20 @@ namespace RedisService
                 catch (System.Exception)
                 {
                     return default(T);
+                }
+            }
+        }
+        public void SortedSetAdd(string sortedSetKey, string gameKey, string score)
+        {
+            using (var _client = _redisManagerPool.GetClient())
+            {
+                try
+                {
+                    _client.AddItemToSortedSet(sortedSetKey, gameKey, double.Parse(score));
+                }
+                catch (System.Exception e)
+                {
+                   
                 }
             }
         }

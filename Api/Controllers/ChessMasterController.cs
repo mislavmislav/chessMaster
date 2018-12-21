@@ -1,55 +1,50 @@
-﻿using ChessMaster;
+﻿using Api.Dto;
+using ChessMaster;
+using Jil;
 using Microsoft.AspNetCore.Mvc;
-using RedisService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class ChessMasterController : ControllerBase
     {
-        private IRedisService _redisService;
+        private IMaster _chessService;
 
-        public ChessMasterController(IRedisService redisService)
+        public ChessMasterController(IMaster chessService)
         {
-            _redisService = redisService;
+            _chessService = chessService;
         }
 
-        // GET api/chess
-        //  method will return state of scraping
-        [HttpGet]
-        public ActionResult<bool> Get()
+
+        [HttpGet("/chessmaster/generatedatamodel/{username}")]
+        public ActionResult<bool> GenerateDataModel()
         {
-            return _redisService.CheckStatus();
-        }
-
-        // GET api/chess
-        //  method will return state of scraping
-        [HttpGet("{id}")]
-        public ActionResult<bool> Get(string id)
-        {
-            var username = "mislavmislav";
-
-            var stats = ChessComClient.GetStats(username);
-            var months = ChessComClient.GetMonthlyStats(username);
-
-            Dictionary<DateTime, MonthGames> completeArchive = new Dictionary<DateTime, MonthGames>();
-
-            foreach (var monthArchive in months.Archives)
-            {
-                var games = ChessComClient.GetMonthlyGames(monthArchive.AbsoluteUri);
-                var month = int.Parse(monthArchive.Segments[6]);
-                var year = int.Parse(monthArchive.Segments[5].Split('/').First());
-                completeArchive.Add(new DateTime(year, month, 1), games);
-
-                _redisService.Add(new DateTime(year, month, 1).ToString(), games.Games.Count);
-            }
-
+            Task.Run(() => _chessService.CheckDataModel("mislavmislav"));
             return true;
         }
+
+        [HttpGet("/chessmaster/getstatus/{username}")]
+        public HttpResponseMessage GetStatus(string username)
+        {
+            var status = _chessService.GetStatus(username);
+            return ReturnResult(status);
+        }
+
+        protected HttpResponseMessage ReturnResult<T>(T result)
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(
+                    JSON.SerializeDynamic(
+                        new ServiceResult<T>(result)), 
+                    Encoding.UTF8, 
+                    "application/json"),
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+        }
     }
-      
 }

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Jil" Version="2.16.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
