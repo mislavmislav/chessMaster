@@ -5,6 +5,8 @@ namespace RedisService
     public interface IRedisService
     {
         bool CheckStatus();
-        void AddArchive(DateTime dateTime, int count);
+        bool KeyExists(string key);
+        void Add<T>(string key, T value);
+        T Get<T>(string key);
     }
 }

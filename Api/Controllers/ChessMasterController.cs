@@ -45,7 +45,7 @@ namespace Api.Controllers
                 var year = int.Parse(monthArchive.Segments[5].Split('/').First());
                 completeArchive.Add(new DateTime(year, month, 1), games);
 
-                _redisService.AddArchive(new DateTime(year, month, 1), games.Games.Count);
+                _redisService.Add(new DateTime(year, month, 1).ToString(), games.Games.Count);
             }
 
             return true;

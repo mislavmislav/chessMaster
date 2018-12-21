@@ -27,13 +27,31 @@ namespace RedisService
             }
         }
 
-        public void AddArchive(DateTime dateTime, int count)
+        public bool KeyExists(string key)
         {
             using (var _client = _redisManagerPool.GetClient())
             {
                 try
                 {
-                    _client.Set<string>(dateTime.ToLongDateString(), count.ToString());
+                    var value = _client.Get<string>(key);
+                    if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)) return false;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public void Add<T>(string key, T value)
+        {
+            using (var _client = _redisManagerPool.GetClient())
+            {
+                try
+                {
+                    _client.Set(key, value);
                 }
                 catch (System.Exception)
                 {
@@ -41,5 +59,19 @@ namespace RedisService
             }
         }
 
+        public T Get<T>(string key)
+        {
+            using (var _client = _redisManagerPool.GetClient())
+            {
+                try
+                {
+                    return _client.Get<T>(key);
+                }
+                catch (System.Exception)
+                {
+                    return default(T);
+                }
+            }
+        }
     }
 }
