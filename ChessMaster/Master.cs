@@ -51,19 +51,19 @@ namespace ChessMaster
                 }
             }
         }
-        public object GetStatus(string username)
+        public DataStatus GetStatus(string username)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException();
             string customerDataPullStatusKey = Keys.CustomerDataPullStatus(username);
             if (!_redisService.KeyExists(customerDataPullStatusKey))
-                return new
+                return new DataStatus
                 {
                     username = username,
                     status = "Data not present!"
                 };
 
             DateTime customerDataPullStatus = _redisService.Get<DateTime>(customerDataPullStatusKey);
-            return new
+            return new DataStatus
             {
                 username = username,
                 date = customerDataPullStatus,

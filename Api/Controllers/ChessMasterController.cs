@@ -1,9 +1,6 @@
-﻿using Api.Dto;
-using ChessMaster;
-using Jil;
+﻿using ChessMaster;
+using ChessMaster.DataModel;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -28,23 +25,10 @@ namespace Api.Controllers
         }
 
         [HttpGet("/chessmaster/getstatus/{username}")]
-        public HttpResponseMessage GetStatus(string username)
+        public DataStatus GetStatus(string username)
         {
             var status = _chessService.GetStatus(username);
-            return ReturnResult(status);
-        }
-
-        protected HttpResponseMessage ReturnResult<T>(T result)
-        {
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent(
-                    JSON.SerializeDynamic(
-                        new ServiceResult<T>(result)), 
-                    Encoding.UTF8, 
-                    "application/json"),
-                StatusCode = System.Net.HttpStatusCode.OK
-            };
+            return status;
         }
     }
 }
